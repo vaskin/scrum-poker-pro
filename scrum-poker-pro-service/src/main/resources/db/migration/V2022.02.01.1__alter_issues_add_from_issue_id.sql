@@ -1,0 +1,1 @@
+ALTER TABLE issue ADD COLUMN from_issue_id UUID;

@@ -1,0 +1,57 @@
+spring:
+  application:
+    name: scrum-poker-pro
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${SPRING_SECURITY_OAUTH2_RESOURCESERVER_JWT_JWK-SET-URI}
+  r2dbc:
+    url: ${SPRING_R2DBC_URL}
+    username: ${SPRING_R2DBC_USERNAME}
+    password: ${SPRING_R2DBC_PASSWORD}
+    initialization-mode: always
+    pool:
+      enabled: true
+      initial-size: 1
+      max-size: 10
+      max-idle-time: 30m
+  flyway:
+    url: ${SPRING_FLYWAY_URL}
+    username: ${SPRING_FLYWAY_USERNAME}
+    password: ${SPRING_FLYWAY_PASSWORD}
+  logging:
+    level:
+      io.r2dbc.postgresql.query: DEBUG # for queries
+      io.r2dbc.postgresql.param: DEBUG # for parameters
+  zipkin:
+    baseUrl: ${SPRING_ZIPKIN_BASEURL}
+scrum-poker-pro:
+  s3:
+    avatar-bucket: avatar
+    url: ${SCRUM-POKER-PRO_S3_URL}
+    region: ${SCRUM-POKER-PRO_S3_REGION}
+    access-key-id: ${SCRUM-POKER-PRO_S3_ACCESS-KEY-ID}
+    secret-access-key: ${SCRUM-POKER-PRO_S3_SECRET-ACCESS-KEY}
+  jira:
+    url: ${SCRUM-POKER-PRO_JIRA_URL}
+  email:
+    display-name: ScrumPokerPro
+    base-url: ${SCRUM-POKER-PRO_EMAIL_BASE-URL}
+    from: ${SCRUM-POKER-PRO_EMAIL_FROM}
+
+management:
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+    tags:
+      app: scrum-poker-pro
+  endpoints:
+    web:
+      exposure:
+        include: health, prometheus
+
+sentry:
+  dsn: ${SENTRY_DNS}
+  traces-sample-rate: 1.0

@@ -1,0 +1,1 @@
+ALTER TABLE issue ADD COLUMN voting_status VARCHAR(10) DEFAULT 'NEW';

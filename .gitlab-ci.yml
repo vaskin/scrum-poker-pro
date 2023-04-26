@@ -1,0 +1,66 @@
+variables:
+  DOCKER_HOST: tcp://docker:2375
+  DOCKER_TLS_CERTDIR: ""
+  DOCKER_DRIVER: overlay2
+  GRADLE_USER_HOME: .gradle
+  GRADLE_OPTS: "-Dorg.gradle.daemon=false"
+stages:
+  - test
+  - build
+  - deploy
+
+test:
+  stage: test
+  image: $GRADLE_JDK_IMAGE
+  interruptible: true
+  services:
+    - $CI_DOCKER_IMAGE
+  cache:
+    paths:
+      - .gradle/wrapper
+      - .gradle/caches
+  script:
+    - gradle clean check
+  only:
+    - merge_requests
+
+build:
+  stage: build
+  image: $GRADLE_JDK_IMAGE
+  interruptible: true
+  cache:
+    paths:
+      - .gradle/wrapper
+      - .gradle/caches
+  script:
+    - gradle clean assemble jib
+      -PdockerRegistry=$CI_DOCKER_REGISTRY
+      -PjdkBaseImage=$JDK_BASE_IMAGE
+      -PprojectName=$CI_PROJECT_NAME
+      -PimageTag=$CI_COMMIT_SHORT_SHA
+      -PregistryUser=$CI_REGISTRY_USER
+      -PregistryPassword=$CI_REGISTRY_PASSWORD
+      -Dmaven.repo.local=$CI_PROJECT_DIR/.m2/repository
+  only:
+    - develop
+
+deploy:
+  stage: deploy
+  image: cnych/kustomize:v1.0
+  cache: []
+  script:
+    - mkdir -p /root/.ssh
+    - echo "$CI_SSH_PRIVATE_KEY" > /root/.ssh/id_rsa
+    - apk add --no-cache openssh-client
+    - ssh-keyscan -H gitlab.com > /root/.ssh/known_hosts
+    - chmod 600 /root/.ssh/id_rsa
+    - git clone git@gitlab.com:scrumpokerpro/k8s-config.git
+    - git config --global user.email "gitlab@gitlab.com"
+    - git config --global user.name "GitLab CI/CD"
+    - cd k8s-config/overlays/prod
+    - kustomize edit set image $CI_DOCKER_REGISTRY/$CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA
+    - cat kustomization.yaml
+    - git commit -am '[skip ci] update scrum-poker-pro'
+    - git push origin master
+  only:
+    - develop

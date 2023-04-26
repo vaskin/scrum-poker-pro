@@ -1,0 +1,21 @@
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          jwk-set-uri: http://jwt
+  mail:
+    host:
+  zipkin:
+    baseUrl:
+scrum-poker-pro:
+  jira:
+    url:
+  s3:
+    url: http://s3
+    region: fr-par
+    access-key:
+    secret-access-key:
+
+sentry:
+  dsn:

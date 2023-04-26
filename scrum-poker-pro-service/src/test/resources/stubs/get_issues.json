@@ -1,0 +1,39 @@
+{
+  "request": {
+    "method": "GET",
+    "url": "/issues?text=parent%20%3D%20%27SPP-7%27%20ORDER%20BY%20rank%20ASC&jql=true",
+    "headers": {
+      "Authorization": {
+        "equalTo": "Bearer token"
+      }
+    }
+  },
+  "response": {
+    "jsonBody": [
+      {
+        "id": "10034",
+        "parentId": "10015",
+        "key": "SPP-35",
+        "link": "https://scrumpokerpro.atlassian.net/browse/SPP-35",
+        "title": "Copy issues from meeting",
+        "description": "null",
+        "status": "TODO",
+        "type": "Sub-task"
+      },
+      {
+        "id": "10033",
+        "parentId": "10015",
+        "key": "SPP-34",
+        "link": "https://scrumpokerpro.atlassian.net/browse/SPP-34",
+        "title": "Sub-tasks import",
+        "description": "null",
+        "status": "In progress",
+        "type": "Sub-task"
+      }
+    ],
+    "status": 200,
+    "headers": {
+      "Content-Type": "application/json"
+    }
+  }
+}

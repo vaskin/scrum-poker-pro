@@ -21,7 +21,7 @@ scrum-poker-pro-jira — integration with Jira Cloud: kotlin, spring boot, gradl
 
 keycloak — open source identity and access management
 
-scrum-poker-pro-landing — landing page: html, css, pug, sass, gulp. Available at the https://scrumpokerpro.com
+scrum-poker-pro-landing — landing page: html, css, pug, sass, gulp. Available at the https://www.scrumpokerpro.com
 
 scrum-poker-pro-frontend — main React web-application: html, css, javascript, react, webpack. Available at the https://space.scrumpokerpro.com
 

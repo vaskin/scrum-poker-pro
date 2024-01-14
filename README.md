@@ -9,7 +9,7 @@ The Covid-19 pandemic has seriously changed the reality in which we live. A lot 
 
 # Cloud provider
 
-We use Scaleway as our cloud provider. The main selection criteria were the availability of Kubernetes, PostgreSQL, S3, Container Registry managed services as well as the presence of a provider in Terraform for resource management. Yes, we follow the Infrastructure as Code approach. And of course the price.
+We use AWS as our cloud provider. The main selection criteria were the availability of Kubernetes, PostgreSQL, S3, Container Registry managed services as well as the presence of a provider in Terraform for resource management. Yes, we follow the Infrastructure as Code approach.
 
 # Workloads
 
@@ -27,7 +27,7 @@ scrum-poker-pro-frontend — main React web-application: html, css, javascript, 
 
 # Persistent storage
 
-PostgreSQL is the main database of our architecture. We use a managed service from Scaleway cloud provider which deployed in a highly available configuration with 1 primary node and 1 standby node.
+PostgreSQL is the main database of our architecture. We use a managed service from AWS cloud provider which deployed in a highly available configuration with 1 primary node and 1 standby node.
 
 S3 Object Storage is a file storage that stores user avatars, privacy policy files and grafana dashboards.
 
